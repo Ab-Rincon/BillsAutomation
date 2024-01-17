@@ -54,7 +54,7 @@ def read_excel_data(file_key: str) -> dict[str, str]:
 
 def auto_adjust_column_width(file_key: str):
     # Open the Excel file
-    logging.info(f"Auto-adjusting column width for file: {file_key}")
+    logging.debug(f"Auto-adjusting column width for file: {file_key}")
     workbook = openpyxl.load_workbook(file_key)
     sheet = workbook.active  # Assumes you are working with the active sheet
 
@@ -75,4 +75,4 @@ def auto_adjust_column_width(file_key: str):
 
     # Save the workbook
     workbook.save(file_key)
-    logging.info(f"Column width adjusted for file: {file_key}")
+    logging.debug(f"Column width adjusted for file: {file_key}")

@@ -1,4 +1,4 @@
-name: PBGC Automation CI
+name: Lint, Build, and Release
 
 on:
   push:

@@ -1,7 +1,8 @@
 import pandas as pd
 import logging
 import openpyxl
-from .config import (EMPLOYEE_NAME_CELL, WEEKLY_PERIOD_CELL_RANGE, PROJECT_HOUR_CELL_RANGE, COMMENT_CELL_RANGE)
+from .config import (EMPLOYEE_NAME_CELL, WEEKLY_PERIOD_CELL_RANGE, PROJECT_HOUR_CELL_RANGE,
+                     COMMENT_CELL_RANGE, EMPLOYEE_NAME_BACKUP_CELL)
 
 
 def read_excel_data(file_key: str) -> dict[str, str]:
@@ -13,6 +14,15 @@ def read_excel_data(file_key: str) -> dict[str, str]:
     # Get employee name
     logging.debug(f'Getting employee name from cell {EMPLOYEE_NAME_CELL}')
     employee_name = df_full.iloc[EMPLOYEE_NAME_CELL[1], EMPLOYEE_NAME_CELL[0]]
+    if pd.isna(employee_name):
+        employee_name = ''
+
+    employee_name_backup = df_full.iloc[EMPLOYEE_NAME_BACKUP_CELL[1], EMPLOYEE_NAME_BACKUP_CELL[0] + 1]
+    if pd.isna(employee_name_backup):
+        employee_name_backup = ''
+
+    employee_name = employee_name + employee_name_backup
+    
     if employee_name is None:
         error_msg = f"Employee Name not found in cell {EMPLOYEE_NAME_CELL}"
         logging.exception(error_msg)

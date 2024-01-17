@@ -10,6 +10,7 @@ def excel_column_to_index(column_letter: str) -> int:
 
 
 EMPLOYEE_NAME_CELL = (excel_column_to_index("B"), 3 - 2)
+EMPLOYEE_NAME_BACKUP_CELL = (excel_column_to_index("C"), 3 - 2)
 WEEKLY_PERIOD_CELL_RANGE = (excel_column_to_index("C"), 8 - 2, excel_column_to_index("D"), 8 - 2)
 PROJECT_HOUR_CELL_RANGE = (excel_column_to_index("B"), 18 - 2, excel_column_to_index("I"), 18 - 2)
 COMMENT_CELL_RANGE = (excel_column_to_index("B"), 23 - 2, excel_column_to_index("I"), 23 - 2)

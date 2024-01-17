@@ -19,9 +19,8 @@ def main():
         output_df = dat.clean_data(excel_data)
         if invoice_file_key == invoice_file_keys[0]:
             merged_df = output_df
-
-        # Merge data
-        merged_df = pd.concat([merged_df, output_df], ignore_index=True)
+        else:
+            merged_df = pd.concat([merged_df, output_df], ignore_index=True)
 
     logging.debug(f'Merged data:\n{merged_df}')
 

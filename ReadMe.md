@@ -1,17 +1,17 @@
-# BillsAutomation v1.0.1
+# BillsAutomation v1.0.2
 
 ## Getting Started
 
-Follow these steps to process your invoice workbook using the provided application.
+Ensure to download the `dist.zip` file from the latest release.
 
 1. **Prepare Invoice Workbook:**
    - Locate the `dist/input` directory on your computer.
-   - Place your invoice workbook (`.xlsx` or `.xls` file) into the `dist/input` directory.
+   - Place your invoice workbooks (`.xlsx` files) into the `dist/input` directory.
    - Please ensure that all the necessary headers are included in the file.
 
 2. **Run the Application:**
    - Navigate to the `dist` directory.
-   - Double-click on `main.exe` to start the processing of the invoice workbook.
+   - Double-click on the `.exe` file to start the processing of the invoice workbook.
 
 ## Post-Processing
 
@@ -20,8 +20,12 @@ Follow these steps to process your invoice workbook using the provided applicati
    - Retrieve the processed invoice workbook from this directory.
 
 2. **Review Log Files:**
-   - Find `logfile.log` in the `dist` directory to review any operational logs for errors or confirmation of successful processing.
+   - Find `logfile.log` in the `dist/output` directory to review any operational logs for errors or confirmation of successful processing.
    - If you experience any issues, the log file may contain details that can help in troubleshooting.
+
+## Notes
+
+- The cell ranges are hard coded which means if the input format is not kept the same, exceptions and/or incorrect data will occur
 
 ## Requirements
 

@@ -16,7 +16,9 @@ COMMENT_CELL_RANGE = (excel_column_to_index("B"), 23 - 2, excel_column_to_index(
 
 INPUT_DIRECTORY = 'input'
 if not os.path.exists(INPUT_DIRECTORY):
-    raise Exception(f'Please create an input directory and place the input files there. {INPUT_DIRECTORY}')
+    error_msg = f'Please create an input directory and place the input files there. {INPUT_DIRECTORY}'
+    logging.exception(error_msg)
+    raise Exception(error_msg)
 
 OUTPUT_DIRECTORY = 'output'
 if not os.path.exists(OUTPUT_DIRECTORY):

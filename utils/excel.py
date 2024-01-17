@@ -14,7 +14,9 @@ def read_excel_data(file_key: str) -> dict[str, str]:
     logging.debug(f'Getting employee name from cell {EMPLOYEE_NAME_CELL}')
     employee_name = df_full.iloc[EMPLOYEE_NAME_CELL[1], EMPLOYEE_NAME_CELL[0]]
     if employee_name is None:
-        raise Exception(f"Employee Name not found in cell {EMPLOYEE_NAME_CELL}")
+        error_msg = f"Employee Name not found in cell {EMPLOYEE_NAME_CELL}"
+        logging.exception(error_msg)
+        raise Exception(error_msg)
     logging.info(f"Employee Name: {employee_name}")
 
     # Get weekly period data
@@ -22,7 +24,9 @@ def read_excel_data(file_key: str) -> dict[str, str]:
     weekly_period_end = df_full.iloc[WEEKLY_PERIOD_CELL_RANGE[3], WEEKLY_PERIOD_CELL_RANGE[2]].strftime("%m/%d/%Y")
     weekly_period = f'{weekly_period_start} - {weekly_period_end}'
     if weekly_period_start is None or weekly_period_end is None:
-        raise Exception(f"Weekly Period not found in cells {WEEKLY_PERIOD_CELL_RANGE}")
+        error_msg = f"Weekly Period not found in cells {WEEKLY_PERIOD_CELL_RANGE}"
+        logging.exception(error_msg)
+        raise Exception(error_msg)
     logging.info(f"Weekly Period: {weekly_period}")
 
     # Get Project Hour data
@@ -31,9 +35,13 @@ def read_excel_data(file_key: str) -> dict[str, str]:
         project_hours.append(df_full.iloc[PROJECT_HOUR_CELL_RANGE[1], PROJECT_HOUR_CELL_RANGE[0] + day])
         project_hours_date.append(df_full.iloc[PROJECT_HOUR_CELL_RANGE[1] - 6, PROJECT_HOUR_CELL_RANGE[0] + day].strftime("%m/%d/%Y"))
     if len(project_hours) != 7:
-        raise Exception(f"Project Hours not found in cells {PROJECT_HOUR_CELL_RANGE}")
+        error_msg = f"Project Hours not found in cells {PROJECT_HOUR_CELL_RANGE}"
+        logging.exception(error_msg)
+        raise Exception(error_msg)
     if len(project_hours_date) != 7:
-        raise Exception(f"Project Hours Date not found in cells {PROJECT_HOUR_CELL_RANGE}")
+        error_msg = f"Project Hours Date not found in cells {PROJECT_HOUR_CELL_RANGE}"
+        logging.exception(error_msg)
+        raise Exception(error_msg)
     logging.info(f"Project Hours: {project_hours}\nProject Hours Date: {project_hours_date}")
 
     # Get Comment data

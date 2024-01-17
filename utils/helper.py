@@ -1,5 +1,6 @@
 import os
 from .config import INPUT_DIRECTORY
+import logging
 
 
 def find_workbook_list() -> list:
@@ -8,7 +9,9 @@ def find_workbook_list() -> list:
                  os.path.isfile(os.path.join(INPUT_DIRECTORY, f)) and not f.startswith('~') and f.endswith('.xlsx')]
 
     if file_list == []:
-        raise Exception(f'Please create an input directory and place the input files there. {INPUT_DIRECTORY}')
+        error_msg = f'Please create an input directory and place the input files there. {INPUT_DIRECTORY}'
+        logging.exception(error_msg)
+        raise Exception(error_msg)
 
     # add the directory to the file name
     file_keys = [os.path.join(INPUT_DIRECTORY, f) for f in file_list]

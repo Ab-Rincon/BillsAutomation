@@ -2,9 +2,12 @@ name: Lint, Build, and Release
 
 on:
   push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+    branches:
+      - main
+    paths:
+      - 'main.py'
+      - 'utils/**'
+
 
 jobs:
   lint:

@@ -3,6 +3,7 @@ import logging
 import openpyxl
 from .config import (EMPLOYEE_NAME_CELL, WEEKLY_PERIOD_CELL_RANGE, PROJECT_HOUR_CELL_RANGE, COMMENT_CELL_RANGE)
 
+
 def read_excel_data(file_key: str) -> dict[str, str]:
     # Read the Excel file
     logging.info(f"\n\nReading Excel file: {file_key}")
@@ -12,7 +13,7 @@ def read_excel_data(file_key: str) -> dict[str, str]:
     # Get employee name
     logging.debug(f'Getting employee name from cell {EMPLOYEE_NAME_CELL}')
     employee_name = df_full.iloc[EMPLOYEE_NAME_CELL[1], EMPLOYEE_NAME_CELL[0]]
-    if employee_name == None:
+    if employee_name is None:
         raise Exception(f"Employee Name not found in cell {EMPLOYEE_NAME_CELL}")
     logging.info(f"Employee Name: {employee_name}")
 
@@ -20,7 +21,7 @@ def read_excel_data(file_key: str) -> dict[str, str]:
     weekly_period_start = df_full.iloc[WEEKLY_PERIOD_CELL_RANGE[1], WEEKLY_PERIOD_CELL_RANGE[0]].strftime("%m/%d/%Y")
     weekly_period_end = df_full.iloc[WEEKLY_PERIOD_CELL_RANGE[3], WEEKLY_PERIOD_CELL_RANGE[2]].strftime("%m/%d/%Y")
     weekly_period = f'{weekly_period_start} - {weekly_period_end}'
-    if weekly_period_start == None or weekly_period_end == None:
+    if weekly_period_start is None or weekly_period_end is None:
         raise Exception(f"Weekly Period not found in cells {WEEKLY_PERIOD_CELL_RANGE}")
     logging.info(f"Weekly Period: {weekly_period}")
 
@@ -28,7 +29,7 @@ def read_excel_data(file_key: str) -> dict[str, str]:
     project_hours, project_hours_date = [], []
     for day in range(7):
         project_hours.append(df_full.iloc[PROJECT_HOUR_CELL_RANGE[1], PROJECT_HOUR_CELL_RANGE[0] + day])
-        project_hours_date.append(df_full.iloc[PROJECT_HOUR_CELL_RANGE[1]-6, PROJECT_HOUR_CELL_RANGE[0] + day].strftime("%m/%d/%Y"))
+        project_hours_date.append(df_full.iloc[PROJECT_HOUR_CELL_RANGE[1] - 6, PROJECT_HOUR_CELL_RANGE[0] + day].strftime("%m/%d/%Y"))
     if len(project_hours) != 7:
         raise Exception(f"Project Hours not found in cells {PROJECT_HOUR_CELL_RANGE}")
     if len(project_hours_date) != 7:
@@ -50,6 +51,7 @@ def read_excel_data(file_key: str) -> dict[str, str]:
         "comments": comments
     }
 
+
 def auto_adjust_column_width(file_key: str):
     # Open the Excel file
     logging.info(f"Auto-adjusting column width for file: {file_key}")
@@ -65,7 +67,7 @@ def auto_adjust_column_width(file_key: str):
             try:
                 if len(str(cell.value)) > max_length:
                     max_length = len(cell.value)
-            except:
+            except:  # noqa E722
                 pass
 
         adjusted_width = (max_length + 2)  # Add 2 for a little extra padding

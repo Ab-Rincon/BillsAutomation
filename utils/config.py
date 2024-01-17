@@ -8,10 +8,11 @@ def excel_column_to_index(column_letter: str) -> int:
         column_index += (ord(char) - ord('A') + 1) * (26 ** i)
     return column_index - 1
 
-EMPLOYEE_NAME_CELL = (excel_column_to_index("B"), 3-2)
-WEEKLY_PERIOD_CELL_RANGE = (excel_column_to_index("C"), 8-2, excel_column_to_index("D"), 8-2)
-PROJECT_HOUR_CELL_RANGE = (excel_column_to_index("B"), 18-2, excel_column_to_index("I"), 18-2)
-COMMENT_CELL_RANGE = (excel_column_to_index("B"), 23-2, excel_column_to_index("I"), 23-2)
+
+EMPLOYEE_NAME_CELL = (excel_column_to_index("B"), 3 - 2)
+WEEKLY_PERIOD_CELL_RANGE = (excel_column_to_index("C"), 8 - 2, excel_column_to_index("D"), 8 - 2)
+PROJECT_HOUR_CELL_RANGE = (excel_column_to_index("B"), 18 - 2, excel_column_to_index("I"), 18 - 2)
+COMMENT_CELL_RANGE = (excel_column_to_index("B"), 23 - 2, excel_column_to_index("I"), 23 - 2)
 
 INPUT_DIRECTORY = 'input'
 if not os.path.exists(INPUT_DIRECTORY):
@@ -26,6 +27,7 @@ LOG_FILE_KEY = os.path.join(OUTPUT_DIRECTORY, LOG_FILE_NAME)
 
 OUTPUT_FILE_NAME = 'output.xlsx'
 OUTPUT_FILE_KEY = os.path.join(OUTPUT_DIRECTORY, OUTPUT_FILE_NAME)
+
 
 def set_logger():
     """

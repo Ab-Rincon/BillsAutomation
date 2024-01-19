@@ -14,11 +14,15 @@ def read_excel_data(file_key: str) -> dict[str, str]:
     # Get employee name
     logging.debug(f'Getting employee name from cell {EMPLOYEE_NAME_CELL}')
     employee_name = df_full.iloc[EMPLOYEE_NAME_CELL[1], EMPLOYEE_NAME_CELL[0]]
-    if pd.isna(employee_name):
+    logging.debug(f'Retrieved employee name: {employee_name}')
+    if pd.isna(employee_name) or employee_name == 'Consultant Name':
         employee_name = ''
 
-    employee_name_backup = df_full.iloc[EMPLOYEE_NAME_BACKUP_CELL[1], EMPLOYEE_NAME_BACKUP_CELL[0] + 1]
-    if pd.isna(employee_name_backup):
+    # Get employee name backup
+    logging.debug(f'Getting employee name backup from cell {EMPLOYEE_NAME_BACKUP_CELL}')
+    employee_name_backup = df_full.iloc[EMPLOYEE_NAME_BACKUP_CELL[1], EMPLOYEE_NAME_BACKUP_CELL[0]]
+    logging.debug(f'Retrieved employee name backup: {employee_name_backup}')
+    if pd.isna(employee_name_backup) or employee_name_backup == 'Consultant Name':
         employee_name_backup = ''
 
     employee_name = employee_name + employee_name_backup
@@ -66,9 +70,9 @@ def read_excel_data(file_key: str) -> dict[str, str]:
             comment_backup = f'{comment_backup.strip()}\n'
             comment = f'{comment_backup}{comment}'.strip()
 
-        logging.info(f'The comment_backup is: {comment_backup}')
-        logging.info(f'The comment is: {comment}')
-        logging.info(f"Comment for day {day}: {comment}")
+        logging.debug(f'The comment_backup is: {comment_backup}')
+        logging.debug(f'The comment is: {comment}')
+        logging.debug(f"Comment for day {day}: {comment}")
         comments.append(comment)
     logging.info(f"Comments: {comments}")
 

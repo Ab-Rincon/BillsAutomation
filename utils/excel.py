@@ -22,7 +22,7 @@ def read_excel_data(file_key: str) -> dict[str, str]:
         employee_name_backup = ''
 
     employee_name = employee_name + employee_name_backup
-    
+
     if employee_name is None:
         error_msg = f"Employee Name not found in cell {EMPLOYEE_NAME_CELL}"
         logging.exception(error_msg)

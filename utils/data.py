@@ -21,5 +21,9 @@ def clean_data(excel_data: dict) -> pd.DataFrame:
 
     # Replace \n with '; '
     output_df['Comments'] = output_df['Comments'].str.replace('\n', '; ')
+
+    # Limit number of spaces between words to 1
+    output_df['Comments'] = output_df['Comments'].str.replace(' +', ' ', regex=True)
+
     logging.debug(f'Cleaned data:\n{output_df}')
     return output_df

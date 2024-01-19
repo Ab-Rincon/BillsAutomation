@@ -57,7 +57,19 @@ def read_excel_data(file_key: str) -> dict[str, str]:
     # Get Comment data
     comments = []
     for day in range(7):
-        comments.append(df_full.iloc[COMMENT_CELL_RANGE[1], COMMENT_CELL_RANGE[0] + day])
+        comment_backup = df_full.iloc[COMMENT_CELL_RANGE[1] - 1, COMMENT_CELL_RANGE[0] + day]
+        comment = df_full.iloc[COMMENT_CELL_RANGE[1], COMMENT_CELL_RANGE[0] + day]
+        comment = str(comment).strip() if not pd.isna(comment) else ''
+
+        # Check if comment_backup is NaN
+        if not pd.isna(comment_backup):
+            comment_backup = f'{comment_backup.strip()}\n'
+            comment = f'{comment_backup}{comment}'.strip()
+
+        logging.info(f'The comment_backup is: {comment_backup}')
+        logging.info(f'The comment is: {comment}')
+        logging.info(f"Comment for day {day}: {comment}")
+        comments.append(comment)
     logging.info(f"Comments: {comments}")
 
     # Return the data

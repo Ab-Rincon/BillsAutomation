@@ -1,4 +1,4 @@
-# BillsAutomation v1.1.1
+# BillsAutomation v1.2.0
 
 ## Getting Started
 

@@ -25,8 +25,11 @@ OUTPUT_DIRECTORY = 'output'
 if not os.path.exists(OUTPUT_DIRECTORY):
     os.makedirs(OUTPUT_DIRECTORY)
 
-LOG_FILE_NAME = 'logfile.log'
-LOG_FILE_KEY = os.path.join(OUTPUT_DIRECTORY, LOG_FILE_NAME)
+INFO_LOG_FILENAME = 'info.log'
+INFO_LOG_FILEKEY = os.path.join(OUTPUT_DIRECTORY, INFO_LOG_FILENAME)
+
+DEBUG_LOG_FILENAME = 'debug.log'
+DEBUG_LOG_FILEKEY = os.path.join(OUTPUT_DIRECTORY, DEBUG_LOG_FILENAME)
 
 OUTPUT_FILE_NAME = 'output.xlsx'
 OUTPUT_FILE_KEY = os.path.join(OUTPUT_DIRECTORY, OUTPUT_FILE_NAME)
@@ -41,18 +44,27 @@ def set_logger():
     while logger.hasHandlers():
         logger.removeHandler(logger.handlers[0])
 
-    logger.setLevel(logging.INFO)
+    logger.setLevel(logging.DEBUG)
 
     # Set the log format
-    formatter = logging.Formatter("%(asctime)s %(levelname)s: %(message)s", datefmt="%Y-%m-%d %H:%M:%S")
+    logfmt = "%(asctime)s %(levelname)s: %(message)s"
+    datefmt = "%Y-%m-%d %H:%M:%S"
+    formatter = logging.Formatter(logfmt, datefmt)
 
-    # Set up console logging
+    # Set up console logging (INFO level)
     console_handler = logging.StreamHandler()
     console_handler.setLevel(logging.INFO)
+    console_handler.setFormatter(formatter)
     logger.addHandler(console_handler)
 
-    # Set up file logging
-    file_handler = logging.FileHandler(LOG_FILE_KEY, mode="w")
-    file_handler.setLevel(logging.DEBUG)
-    file_handler.setFormatter(formatter)
-    logger.addHandler(file_handler)
+    # Set up debug file logging (DEBUG level)
+    debug_file_handler = logging.FileHandler(DEBUG_LOG_FILEKEY, mode='w')
+    debug_file_handler.setLevel(logging.DEBUG)
+    debug_file_handler.setFormatter(formatter)
+    logger.addHandler(debug_file_handler)
+
+    # Set up error file logging (INFO level)
+    error_file_handler = logging.FileHandler(INFO_LOG_FILEKEY, mode='w')
+    error_file_handler.setLevel(logging.INFO)
+    error_file_handler.setFormatter(formatter)
+    logger.addHandler(error_file_handler)

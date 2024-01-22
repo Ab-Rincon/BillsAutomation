@@ -61,10 +61,17 @@ def read_excel_data(file_key: str) -> dict[str, str]:
     # Get Comment data
     comments = []
     for day in range(7):
+        logging.debug(f"Getting comment for day {day}")
+
         comment_backup = df_full.iloc[COMMENT_CELL_RANGE[1] - 1, COMMENT_CELL_RANGE[0] + day]
+        logging.debug(f'The comment_backup is: {comment_backup}')  # Comment backup is row 20 in dataframe
+
         comment = df_full.iloc[COMMENT_CELL_RANGE[1], COMMENT_CELL_RANGE[0] + day]
-        comment_backup2 = df_full.iloc[COMMENT_CELL_RANGE[1] - 2, COMMENT_CELL_RANGE[0] + day]
+        logging.debug(f'The comment is: {comment}')  # comment is row 21 in dataframe
         comment = str(comment).strip() if not pd.isna(comment) else ''
+
+        comment_backup2 = df_full.iloc[COMMENT_CELL_RANGE[1] + 1, COMMENT_CELL_RANGE[0] + day]
+        logging.debug(f'The comment_backup2 is: {comment_backup2}')  # Comment backup2 is row 22 in dataframe
 
         # Check if comment_backup is not NaN and append it to comment
         if not pd.isna(comment_backup):
@@ -75,11 +82,8 @@ def read_excel_data(file_key: str) -> dict[str, str]:
         if not pd.isna(comment_backup2):
             comment_backup2 = f'{comment_backup2.strip()}\n'
             # Append comment_backup2 at the beginning of the comment
-            comment = f'{comment_backup2}{comment}'.strip()
+            comment = f'{comment}{comment_backup2}'.strip()
 
-        logging.debug(f'The comment_backup is: {comment_backup}')
-        logging.debug(f'The comment_backup2 is: {comment_backup2}')
-        logging.debug(f'The comment is: {comment}')
         logging.debug(f"Comment for day {day}: {comment}")
         comments.append(comment)
 
